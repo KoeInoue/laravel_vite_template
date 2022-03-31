@@ -12,7 +12,6 @@ ENV COMPOSER_HOME=/composer
 
 COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
 
-COPY . $WORKDIR
 
 RUN apt-get update \
     && apt-get -y install --no-install-recommends \
@@ -22,6 +21,11 @@ RUN apt-get update \
     libzip-dev \
     libicu-dev \
     libonig-dev \
+    libonig-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libjpeg-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && locale-gen en_US.UTF-8 \
@@ -31,9 +35,13 @@ RUN apt-get update \
     pdo_mysql \
     zip \
     bcmath \
+    gd \
+    && docker-php-ext-configure gd \
+    --with-freetype=/usr/include/ \
+    --with-jpeg=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd \
     && composer config -g process-timeout 3600 \
     && composer config -g repos.packagist composer https://packagist.org
-
 
 #=================================================
 # ローカル開発ステージ / Local development stage
@@ -62,12 +70,8 @@ ARG UNAME=www
 ARG GID=991
 ARG GNAME=www
 
+COPY . $WORKDIR
 COPY ./.docker/php/php.production.ini /usr/local/etc/php/php.ini
-
-RUN composer install -q -n --no-ansi --no-dev --no-scripts --no-progress --prefer-dist \
-    && chmod -R 777 storage bootstrap/cache \
-    && php artisan optimize:clear \
-    && php artisan optimize
 
 RUN set -x \
     && composer install --no-progress --no-dev \
