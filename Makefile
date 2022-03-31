@@ -15,3 +15,5 @@ php:
 	docker container exec -it laravel-template_php bash
 nginx:
 	docker container exec -it laravel-template_nginx ash
+npm-dev:
+	docker container exec -it laravel-template_nginx npm run dev
