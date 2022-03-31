@@ -9,22 +9,22 @@ services:
       context: .
       dockerfile: ./.docker/nginx/Dockerfile
       target: local
-    container_name: ${CONTAINER_NAME}_nginx
+    container_name: nginx_laravel_template
     volumes:
-      - ./public:/var/www/html/public:ro
+      - type: bind
+        source: .
+        target: /var/www/html
     ports:
       - 80:80
     environment:
-      PHP_HOST: php
-    env_file: .env
+      PHP_HOST: php_laravel_template
 
   php:
     build:
       context: .
       dockerfile: ./.docker/php/Dockerfile
       target: development
-    container_name: ${CONTAINER_NAME}_php
-    env_file: .env
+    container_name: php_laravel_template
     volumes:
       - type: bind
         source: .
@@ -34,29 +34,32 @@ services:
     build:
       context: .
       dockerfile: ./.docker/mariadb/Dockerfile
-    container_name: ${CONTAINER_NAME}_mariadb
-    env_file: .env
+    container_name: mariadb_laravel_template
     ports:
       - 3306
     volumes:
       - datastore:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_DATABASE: laravel_template
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: 'Asia/Tokyo'
 
   pma:
     build:
       context: .
       dockerfile: ./.docker/pma/Dockerfile
       target: builder
-    container_name: ${CONTAINER_NAME}_pma
+    container_name: phpmyadmin_laravel_template
     depends_on:
-      - ${CONTAINER_NAME}_mariadb
-    env_file: .env
+      - maria_db_laravel_template
     ports:
       - 8080:80
 
   mail:
     image: mailhog/mailhog
-    container_name: ${CONTAINER_NAME}_mail
+    container_name: mail_laravel_template
     ports:
       - 8025:8025
-    env_file: .env
 

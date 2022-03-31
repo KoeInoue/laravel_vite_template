@@ -12,6 +12,6 @@ restart:
 logs:
 	docker compose logs
 php:
-	docker container exec -it laravel-template_php bash
+	docker container exec -it php_laravel_template bash
 nginx:
-	docker container exec -it laravel-template_nginx ash
+	docker container exec -it nginx_laravel_template ash
