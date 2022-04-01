@@ -16,4 +16,4 @@ php:
 nginx:
 	docker container exec -it nginx_laravel_template ash
 npm-dev:
-	docker container exec -it nginx_laravel_template npm run dev
+	docker container exec -it php_laravel_template npm run dev

@@ -1,6 +1,6 @@
-#==================================================
-# 共通ステージ / Common stage
-#=================================================
+#=========================================
+# Multi stage build - base image
+#=========================================
 FROM php:8.1-fpm-bullseye AS base
 
 ENV WORKDIR=/var/www/html
@@ -43,25 +43,28 @@ RUN apt-get update \
     && composer config -g process-timeout 3600 \
     && composer config -g repos.packagist composer https://packagist.org
 
-#=================================================
-# ローカル開発ステージ / Local development stage
-#=================================================
+#=========================================
+# Multi stage build - local stage
+#=========================================
 FROM base AS development
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+RUN apt install nodejs
+
 COPY ./.docker/php/php.development.ini /usr/local/etc/php/php.ini
 
-#=================================================
-# テスト環境ステージ / Testing stage
-#=================================================
+#=========================================
+# Multi stage build - testing stage
+#=========================================
 
 # TODO
 # FROM base AS staging
 
-#=================================================
-# 本番環境ステージ / Production stage
-#=================================================
+#=========================================
+# Multi stage build - production stage
+#=========================================
 FROM base AS deploy
 
 # variable for creating linux user
