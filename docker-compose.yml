@@ -25,6 +25,8 @@ services:
       dockerfile: ./.docker/php/Dockerfile
       target: development
     container_name: php_laravel_template
+    ports:
+      - 3000:3000
     volumes:
       - type: bind
         source: .

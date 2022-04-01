@@ -15,6 +15,7 @@ return [
             'entrypoints' => [
                 'ssr' => 'resources/scripts/ssr.ts',
                 'paths' => [
+                    'resources/css/tailwind.css',
                     'resources/scripts/main.ts',
                     'resources/js/app.js',
                 ],
@@ -22,7 +23,7 @@ return [
             ],
             'dev_server' => [
                 'enabled' => true,
-                'url' => env('DEV_SERVER_URL', 'http://localhost'),
+                'url' => env('DEV_SERVER_URL', 'http://localhost:3000'),
                 'ping_before_using_manifest' => true,
                 'ping_url' => null,
                 'ping_timeout' => 1,

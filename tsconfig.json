@@ -13,8 +13,7 @@
             "dom"
         ],
         "types": [
-            "vite/client",
-            "node"
+            "vite/client"
         ],
         "baseUrl": ".",
         "paths": {
@@ -24,6 +23,6 @@
         }
     },
     "include": [
-        "resources/scripts/**/*"
+        "resources/**/*"
     ]
 }

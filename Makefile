@@ -11,6 +11,8 @@ restart:
 	@make up
 logs:
 	docker compose logs
+ps:
+	docker compose ps
 php:
 	docker container exec -it php_laravel_template bash
 nginx:
