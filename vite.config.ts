@@ -6,8 +6,5 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
   },
-  plugins: [
-    laravel(),
-    vue(),
-	],
+  plugins: [laravel(), vue()],
 })

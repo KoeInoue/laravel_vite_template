@@ -23,5 +23,9 @@ npm-i:
 	docker container exec -it php_laravel_template npm install 
 npm-dev:
 	docker container exec -it php_laravel_template npm run dev
+npm-fix:
+	docker container exec -it php_laravel_template npm run fix
 composer-i:
 	docker contaienr exec -it php_laravel_template composer install
+composer-fix:
+	docker contaienr exec -it php_laravel_template composer fixer

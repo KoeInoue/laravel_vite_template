@@ -3,6 +3,19 @@
 - Localized Japan
 - Dockerized
 - for AWS ECS & ECR
+- SPA
+
+## Quick Start
+
+Clone this project
+`$ cd laravel_ecs_template`
+`$ make up-build` // docker-compose up -d --build
+`$ cp .env.example .env`
+`$ make php`
+`# composer install`
+`# php artisan key:generate`
+`# npm install`
+`# npm run dev` // Start Vite server 
 
 ## Environment
 
@@ -45,16 +58,22 @@
 
 ## Frontend
 
-- Javascript ES6
+- Typescript ES6
 - Vue3
 - Vue Composition API
-- Laravel ~~Mix~~ Vite
+- Vue Router4
+- Vuex 4
+- Laravel Vite
 
 ## Formatting
 
 - phpcs
 - Eslint
 - Prettier
+
+To fix codes
+`make npm-fix`
+`make comoser-fixer`
 
 ## Coding rule
 
