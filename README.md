@@ -7,15 +7,15 @@
 
 ## Quick Start
 
-Clone this project
-`$ cd laravel_ecs_template`
-`$ make up-build` // docker-compose up -d --build
-`$ cp .env.example .env`
-`$ make php`
-`# composer install`
-`# php artisan key:generate`
-`# npm install`
-`# npm run dev` // Start Vite server 
+Clone this project  
+`$ cd laravel_ecs_template`  
+`$ make up-build` // docker-compose up -d --build  
+`$ cp .env.example .env`  
+`$ make php`  
+`# composer install`  
+`# php artisan key:generate`  
+`# npm install`  
+`# npm run dev` // Start Vite server   
 
 ## Environment
 
@@ -71,9 +71,9 @@ Clone this project
 - Eslint
 - Prettier
 
-To fix codes
-`make npm-fix`
-`make comoser-fixer`
+To fix codes  
+`$ make npm-fix`  
+`$ make comoser-fixer`  
 
 ## Coding rule
 
