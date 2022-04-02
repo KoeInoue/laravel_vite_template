@@ -55,9 +55,14 @@ services:
       target: builder
     container_name: phpmyadmin_laravel_template
     depends_on:
-      - maria_db_laravel_template
+      - mariadb_laravel_template
     ports:
       - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=mariadb_laravel_template
+      - PMA_USER=user
+      - PMA_PASSWORD=password
 
   mail:
     image: mailhog/mailhog

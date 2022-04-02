@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
+import { ref } from 'vue'
 
-  const count = ref(0)
-  const addCount = (): void => {
-    count.value++
-  }
+const count = ref(0)
+const addCount = (): void => {
+  count.value++
+}
 </script>
 
 <template>
-  <button @click="addCount">Clicked{{ count }} time</button>
+  <button @click="addCount()">Clicked{{ count }} time</button>
 </template>

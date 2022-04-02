@@ -1,0 +1,47 @@
+env:
+  browser: true
+  es2021: true
+extends:
+  - 'plugin:vue/vue3-recommended'
+  - 'eslint:recommended'
+  - '@vue/typescript/recommended'
+  - prettier
+parserOptions:
+  ecmaVersion: 12
+plugins:
+  - vue
+  - '@typescript-eslint'
+  - prettier
+rules: 
+  no-console: 'warn' # To prevent forgetting to erase console.log()
+  camelcase: 'warn'
+  # These rules relate to ES6, also known as ES2015
+  arrow-parens: 'error' # require parentheses around arrow function arguments
+  arrow-spacing: 'error' # enforce consistent spacing before and after the arrow in arrow functions
+  generator-star-spacing: 'error' # enforce consistent spacing around `*` operators in generator functions
+  no-duplicate-imports: 'error' # disallow duplicate module imports
+  no-useless-computed-key: 'error' # disallow unnecessary computed property keys in objects and classes
+  no-useless-constructor: 'error' # disallow unnecessary constructors
+  no-useless-rename: 'error' # disallow renaming import export and destructured assignments to the same name
+  no-var: 'error' # require `let` or `const` instead of `var`
+  object-shorthand: 'error' # require or disallow method and property shorthand syntax for object literals
+  prefer-arrow-callback: 'error' # require using arrow functions for callbacks
+  prefer-const: 'error' # require `const` declarations for variables that are never reassigned after declared
+  prefer-rest-params: 'error' # require rest parameters instead of `arguments`
+  prefer-spread: 'error' # require spread operators instead of `.apply()`
+  prefer-template: 'error' # require template literals instead of string concatenation
+  rest-spread-spacing: 'error' # enforce spacing between rest and spread operators and their expressions
+  template-curly-spacing: 'error' # require or disallow spacing around embedded expressions of template strings
+  yield-star-spacing: 'error' # require or disallow spacing around the `*` in `yield*` expressions
+
+  prettier/prettier:
+    - 'error'
+    -
+      tabWidth: 2
+      useTabs: false
+      singleQuote: true
+      trailingComma: 'all'
+      bracketSpacing: true
+      arrowParens: 'always'
+      semi: false 
+      endOfLine: 'auto'

@@ -1,7 +1,6 @@
 #=========================================
 # Multi stage build - base image
 #=========================================
-FROM node:16-alpine AS node
 FROM nginx:1.21-alpine AS base
 SHELL ["/bin/ash", "-oeux", "pipefail", "-c"]
 
