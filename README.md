@@ -17,8 +17,6 @@ Clone this project
 `# npm install`  
 `# npm run dev` // Start Vite server   
 
-## Environment
-
 ### Docker multi-stage build
 
 #### For local
@@ -38,7 +36,7 @@ Clone this project
 
 ### Authentication
 
-- AWS Cognite
+- Laravel Sanctum
 → To assume mobile service as well. Because it requires browser-independent authentication
 
 #### Repository Pattern Architecture
@@ -83,4 +81,10 @@ To fix codes
 public function doSomething(string text) : string {
     // Do something
 }
+```
+
+- Camel case variables
+
+```php
+$camelCase = 'not_snake_case';
 ```
