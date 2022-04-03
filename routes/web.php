@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('app');
 });
+
+// For AWS ELB health check
+Route::get('/health-check', function() {
+    config()->set('session.driver', 'array');
+
+    return response('I am health', 200)
+        ->header('Content-Type', 'text/plain');
+});
