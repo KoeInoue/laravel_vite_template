@@ -31,6 +31,6 @@ class AdminController extends Controller
     {
         $admins = $this->adminService->getAllAdmins();
 
-        return view();
+        return view('admin.admin', compact('admins'));
     }
 }
