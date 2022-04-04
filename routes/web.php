@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Admin\AdminController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +19,18 @@ Route::get('/', function () {
     return view('app');
 });
 
-// For AWS ELB health check
+/*
+|--------------------------------------------------------------------------
+| Admin Page Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/admin', [AdminController::class, 'index']);
+
+/*
+|--------------------------------------------------------------------------
+| AWS ELB Health Check Route 
+|--------------------------------------------------------------------------
+*/
 Route::get('/health-check', function() {
     config()->set('session.driver', 'array');
 
