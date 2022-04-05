@@ -9,7 +9,8 @@
 
 Clone this project  
 `$ cd laravel_ecs_template`  
-`$ make up-build` // docker-compose up -d --build  
+`$ make build` // This means docker compose build --no-cache --force-rm  
+`$ make up` 
 `$ cp .env.example .env`  
 `$ make php`  
 `# composer install`  
