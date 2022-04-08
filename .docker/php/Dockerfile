@@ -1,86 +1,93 @@
 #=========================================
 # Multi stage build - base image
 #=========================================
-FROM php:8.1-fpm-bullseye AS base
+FROM php:8.1-fpm-alpine AS base
 
-ENV WORKDIR=/var/www/html
-
+# Work dir difinition
+ENV WORKDIR=/home
 WORKDIR $WORKDIR
 
-# composer environment
+# Composer environment
 ENV COMPOSER_HOME=/composer
+# timezone environment
+ENV TZ=Asia/Tokyo
+# locale
+ENV LANG=ja_JP.UTF-8
 
-COPY --from=composer:2.2 /usr/bin/composer /usr/bin/composer
+# Set Timezone
+RUN apk --no-cache add tzdata && \
+    cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
+    apk del tzdata
 
-
-RUN apt-get update \
-    && apt-get -y install --no-install-recommends \
-    locales \
-    git \
-    unzip \
+# Install packages
+RUN apk --no-cache update && \
+    apk --no-cache upgrade && \
+    apk --no-cache add \
+    curl-dev \
+    freetype-dev \
     libzip-dev \
-    libicu-dev \
-    libonig-dev \
-    libonig-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
+    libjpeg-turbo-dev \
     libpng-dev \
-    libjpeg-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && locale-gen en_US.UTF-8 \
-    && localedef -f UTF-8 -i en_US en_US.UTF-8 \
+    libxml2-dev \
+    zlib-dev \
+    pcre-dev \
+    g++ \
+    make \
+    autoconf \
+    openssl \
+    bash \
+    vim \
+    git \
     && docker-php-ext-install \
-    intl \
+    curl \
+    dom \
+    pdo \
     pdo_mysql \
+    simplexml \
     zip \
-    bcmath \
-    gd \
+    opcache \
     && docker-php-ext-configure gd \
-    --with-freetype=/usr/include/ \
     --with-jpeg=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd \
-    && composer config -g process-timeout 3600 \
-    && composer config -g repos.packagist composer https://packagist.org
+    --with-freetype=/usr/include/  \
+    && docker-php-ext-install gd \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && rm -rf /var/cache/apk/*
 
-#=========================================
-# Multi stage build - local stage
-#=========================================
+#=============================================
+# Multi stage build - local and testing stage
+#=============================================
 FROM base AS development
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN apk add nodejs npm
+RUN chmod -R 777 /root
 
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
-RUN apt install nodejs
-
+# Place php.ini file into the image 
 COPY ./.docker/php/php.development.ini /usr/local/etc/php/php.ini
-
-#=========================================
-# Multi stage build - testing stage
-#=========================================
-
-# TODO
-# FROM base AS staging
 
 #=========================================
 # Multi stage build - production stage
 #=========================================
 FROM base AS deploy
 
-# variable for creating linux user
+# Place application into image
+COPY . $WORKDIR
+COPY ./.docker/php/php.production.ini /usr/local/etc/php/php.ini
+
+# Variables for linux user
 ARG UID=991
 ARG UNAME=www
 ARG GID=991
 ARG GNAME=www
 
-COPY . $WORKDIR
-COPY ./.docker/php/php.production.ini /usr/local/etc/php/php.ini
-
+# Set up scripts
 RUN set -x \
     && composer install --no-progress --no-dev \
     && php artisan config:clear \
     && addgroup ${GNAME} -g ${GID} \
+    # Add linux user
     && adduser -D -G ${GNAME} -u ${UID} ${UNAME} \
+    # Change application authority
     && chown -R ${UNAME}:${GNAME} ${WORKDIR} \
-    && mv /root/.composer /home/${UNAME}/ \
     && chown -R ${UNAME}:${GNAME} /home/${UNAME}
+
+USER ${UNAME} 

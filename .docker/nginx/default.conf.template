@@ -5,7 +5,7 @@ server {
     add_header X-XSS-Protection "1; mode=block";
     add_header X-Content-Type-Options "nosniff";
 
-    root /var/www/html/public/;
+    root /home/public/;
     charset     utf-8;
 
     location = /favicon.ico { access_log off; log_not_found off; }

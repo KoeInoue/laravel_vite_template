@@ -3,7 +3,8 @@
 - Localized Japan
 - Dockerized
 - for AWS ECS & ECR
-- SPA
+- SPA for user page
+- AdminLTE for admin page
 
 ## Quick Start
 

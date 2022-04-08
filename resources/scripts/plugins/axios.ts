@@ -9,14 +9,12 @@ export const http = {
   },
 }
 
-const createInstance = (): AxiosInstance => {
-  const instance = axios.create({
-    baseURL: import.meta.env.VUE_APP_BASE_URL,
+export const createInstance = (): AxiosInstance => {
+  return axios.create({
+    baseURL: '/api/',
     headers: {
       'Content-Type': 'application/json',
     },
     timeout: 2000,
   })
-
-  return instance
 }

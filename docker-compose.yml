@@ -13,7 +13,7 @@ services:
     volumes:
       - type: bind
         source: .
-        target: /var/www/html
+        target: /home
     ports:
       - 80:80
     environment:
@@ -30,7 +30,7 @@ services:
     volumes:
       - type: bind
         source: .
-        target: /var/www/html
+        target: /home
 
   mariadb:
     build:
@@ -69,4 +69,3 @@ services:
     container_name: mail_laravel_template
     ports:
       - 8025:8025
-

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Article\ArticleRepository;
+use App\Repositories\Article\ArticleRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -12,6 +14,7 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Repositories\Admin\AdminRepositoryInterface::class,
             \App\Repositories\Admin\AdminRepository::class,
         );
+        $this->app->bind(ArticleRepositoryInterface::class, ArticleRepository::class);
     }
 
     public function boot()

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
 
