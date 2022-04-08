@@ -1,3 +1,6 @@
+# ------------------------------------------------------------
+# For development
+# ------------------------------------------------------------
 up:
 	docker compose up -d
 up-build:
@@ -15,8 +18,6 @@ logs:
 	docker compose logs
 ps:
 	docker compose ps
-php:
-	docker container exec -it php_laravel_template bash
 nginx:
 	docker container exec -it nginx_laravel_template ash
 npm-i:
@@ -30,6 +31,14 @@ npm-build-watch:
 npm-fix:
 	docker container exec -it php_laravel_template npm run fix
 composer-i:
-	docker contaienr exec -it php_laravel_template composer install
+	docker container exec -it php_laravel_template composer install
 composer-fix:
-	docker contaienr exec -it php_laravel_template composer fixer
+	docker container exec -it php_laravel_template composer fixer
+ide-helper:
+	docker container exec -it php_laravel_template bash -c "php artisan ide-helper:models -N && php artisan ide-helper:generate"
+
+# ------------------------------------------------------------
+# Common 
+# ------------------------------------------------------------
+php:
+	docker container exec -it php_laravel_template bash
